@@ -1,0 +1,146 @@
+/* ============================================================
+   Blauw Films — Rich Text Image Zoom
+   Premium zoom, drag, and backdrop for Webflow rich text images
+   ============================================================ */
+
+/* ---------- Overlay backdrop ---------- */
+.blauw-zoom-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  background: #f9f9f9;
+  opacity: 0;
+  transition: opacity 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+              background-color 0.24s ease;
+  pointer-events: none;
+}
+
+.blauw-zoom-overlay.is-active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.blauw-zoom-overlay.dark-mode {
+  background: #101010;
+}
+
+/* ---------- Zoomed image wrapper ---------- */
+.blauw-zoom-stage {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.blauw-zoom-stage.is-active {
+  pointer-events: all;
+}
+
+/* ---------- The cloned / flying image ---------- */
+.blauw-zoom-img {
+  position: fixed;
+  z-index: 10000;
+  cursor: grab;
+  transform-origin: center center;
+  transition: transform 0.08s ease,
+              box-shadow 0.2s ease;
+  user-select: none;
+  -webkit-user-select: none;
+  /* allow native right-click / context menu */
+  pointer-events: all;
+  will-change: transform;
+  border-radius: 2px;
+  box-shadow: 0 8px 48px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.10);
+}
+
+.blauw-zoom-img.is-dragging {
+  cursor: grabbing;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.28), 0 4px 16px rgba(0,0,0,0.14);
+  transition: box-shadow 0.2s ease;
+}
+
+/* ---------- Source image state while zoomed ---------- */
+.w-richtext img.blauw-zoom-source-active {
+  opacity: 0;
+  transition: opacity 0.18s ease;
+}
+
+/* ---------- Day / Night toggle ---------- */
+.blauw-zoom-toggle {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 10001;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.24s ease, transform 0.2s ease;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.blauw-zoom-toggle.is-visible {
+  opacity: 0.5;
+  pointer-events: all;
+}
+
+.blauw-zoom-toggle:hover {
+  opacity: 0.9 !important;
+  transform: scale(1.12);
+}
+
+.blauw-zoom-toggle svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: #888;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke 0.2s ease;
+}
+
+/* In dark mode the icon strokes go lighter */
+.blauw-zoom-overlay.dark-mode ~ .blauw-zoom-toggle svg,
+.blauw-zoom-toggle.dark svg {
+  stroke: #aaa;
+}
+
+/* ---------- Scroll-escape hint ---------- */
+.blauw-zoom-hint {
+  position: fixed;
+  bottom: 26px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10001;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: rgba(128,128,128,0.55);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease 0.6s;
+  white-space: nowrap;
+}
+
+.blauw-zoom-hint.is-visible {
+  opacity: 1;
+}
+
+/* ---------- Rich-text image cursor hint ---------- */
+.w-richtext img {
+  cursor: zoom-in;
+  transition: opacity 0.18s ease;
+}
