@@ -44,8 +44,8 @@ A premium image zoom overlay for Webflow rich-text fields. Built for the **Blauw
 4. After a minute, your files will be live at:
 
 ```
-https://BlauwFilms.github.io/blauw-zoom/css/zoom.css
-https://BlauwFilms.github.io/blauw-zoom/js/zoom.js
+https://blauwfilms.github.io/blauw-zoom/css/zoom.css
+https://blauwfilms.github.io/blauw-zoom/js/zoom.js
 ```
 
 ---
@@ -55,13 +55,13 @@ https://BlauwFilms.github.io/blauw-zoom/js/zoom.js
 ### 1. Add to `<head>` (Site Settings → Custom Code → Head)
 
 ```html
-<link rel="stylesheet" href="https://BlauwFilms.github.io/blauw-zoom/css/zoom.css">
+<link rel="stylesheet" href="https://blauwfilms.github.io/blauw-zoom/css/zoom.css">
 ```
 
 ### 2. Add before `</body>` (Site Settings → Custom Code → Footer)
 
 ```html
-<script src="https://BlauwFilms.github.io/blauw-zoom/js/zoom.js"></script>
+<script src="https://blauwfilms.github.io/blauw-zoom/js/zoom.js"></script>
 ```
 
 > Replace `BlauwFilms` with your actual GitHub username and `blauw-zoom` with your repository name if different.
