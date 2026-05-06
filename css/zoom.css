@@ -1,5 +1,5 @@
 /* ============================================================
-   Blauw Films — Rich Text Image Zoom
+   Blauw Films — Rich Text Image Zoom v1.3.0
    Premium zoom, drag, and backdrop for Webflow rich text images
    ============================================================ */
 
@@ -24,7 +24,7 @@
   background: #101010;
 }
 
-/* ---------- Zoomed image wrapper ---------- */
+/* ---------- Zoomed image stage ---------- */
 .blauw-zoom-stage {
   position: fixed;
   inset: 0;
@@ -46,33 +46,23 @@
   z-index: 10000;
   cursor: grab;
   transform-origin: center center;
-  transition: transform 0.08s ease,
-              box-shadow 0.2s ease;
+  transition: transform 0.08s ease;
   user-select: none;
   -webkit-user-select: none;
-  /* allow native right-click / context menu */
   pointer-events: all;
   will-change: transform;
-  border-radius: 2px;
-  box-shadow: 0 8px 48px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.10);
+  /* FIX: no background, no shadow, no radius — PNG transparency preserved */
+  background: transparent;
 }
 
 .blauw-zoom-img.is-dragging {
   cursor: grabbing;
-  box-shadow: 0 24px 80px rgba(0,0,0,0.28), 0 4px 16px rgba(0,0,0,0.14);
-  transition: box-shadow 0.2s ease;
 }
 
-/* ---------- Source image state while zoomed ---------- */
-.w-richtext img.blauw-zoom-source-active {
-  opacity: 0;
-  transition: opacity 0.18s ease;
-}
-
-/* ---------- Day / Night toggle ---------- */
+/* ---------- Day / Night toggle — TOP RIGHT (fix #1) ---------- */
 .blauw-zoom-toggle {
   position: fixed;
-  bottom: 24px;
+  top: 24px;
   right: 24px;
   z-index: 10001;
   width: 36px;
@@ -112,7 +102,6 @@
   transition: stroke 0.2s ease;
 }
 
-/* In dark mode the icon strokes go lighter */
 .blauw-zoom-overlay.dark-mode ~ .blauw-zoom-toggle svg,
 .blauw-zoom-toggle.dark svg {
   stroke: #aaa;
@@ -140,7 +129,14 @@
   opacity: 1;
 }
 
-/* ---------- Rich-text image cursor hint ---------- */
+/* FIX #3: hide hint on tablet and smaller to avoid overlapping mobile nav */
+@media (max-width: 991px) {
+  .blauw-zoom-hint {
+    display: none;
+  }
+}
+
+/* ---------- Rich-text image cursor ---------- */
 .w-richtext img {
   cursor: zoom-in;
 }
