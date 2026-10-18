@@ -1,6 +1,6 @@
 /* ============================================================
-   Blauw Films — Rich Text Image Zoom v1.3.0
-   Premium zoom, drag, and backdrop for Webflow rich text images
+   Blauw Films — Image Zoom v1.4.0
+   Premium zoom, drag, gallery and backdrop for Webflow images
    ============================================================ */
 
 /* ---------- Overlay backdrop ---------- */
@@ -136,7 +136,95 @@
   }
 }
 
-/* ---------- Rich-text image cursor ---------- */
-.w-richtext img {
+/* ---------- Gallery: previous / next ---------- */
+.blauw-zoom-nav {
+  position: fixed;
+  top: 50%;
+  z-index: 10001;
+  width: 44px;
+  height: 44px;
+  margin-top: -22px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.24s ease, transform 0.2s ease;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.blauw-zoom-nav.is-prev { left: 16px; }
+.blauw-zoom-nav.is-next { right: 16px; }
+
+.blauw-zoom-nav.is-visible {
+  opacity: 0.5;
+  pointer-events: all;
+}
+
+.blauw-zoom-nav:hover,
+.blauw-zoom-nav:focus-visible {
+  opacity: 0.9 !important;
+  transform: scale(1.12);
+}
+
+.blauw-zoom-nav svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: #888;
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.blauw-zoom-overlay.dark-mode ~ .blauw-zoom-nav svg {
+  stroke: #aaa;
+}
+
+/* Touch screens browse by swiping */
+@media (hover: none) {
+  .blauw-zoom-nav { display: none; }
+}
+
+/* ---------- Gallery: counter ---------- */
+.blauw-zoom-counter {
+  position: fixed;
+  top: 33px;
+  left: 28px;
+  z-index: 10001;
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  font-variant-numeric: tabular-nums;
+  color: rgba(128,128,128,0.7);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.24s ease;
+}
+
+.blauw-zoom-counter.is-visible {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blauw-zoom-img { transition: none !important; }
+}
+
+/* ---------- Zoomable image cursor ---------- */
+.w-richtext img,
+[data-blauw-zoom-group] img,
+img[data-blauw-zoom] {
   cursor: zoom-in;
+}
+
+img[data-blauw-zoom="off"],
+img[data-blauw-zoom="false"] {
+  cursor: auto;
 }
